@@ -1,2 +1,2 @@
 # Beltran-Algoritmo-II-2doAnio
-Ejercicios dados en el 2do año de Analista de sistema  - Materia | Algoritmo II
+Ejercicios  2022 --> Instituto Beltran |  Analista de sistema |  Algoritmo II | Programacion en Java
