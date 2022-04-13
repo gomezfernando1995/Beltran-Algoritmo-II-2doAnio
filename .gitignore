@@ -21,3 +21,5 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/1er Cuatri/C1/1.C.5-TolowerCase/target/
+/1er Cuatri/C1/1.C.6-ReemplazarCadena/target/
