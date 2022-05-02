@@ -1,3 +1,7 @@
+
+import java.awt.Image;
+import java.awt.Toolkit;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,6 +18,12 @@ public class Ventana extends javax.swing.JFrame {
      */
     public Ventana() {
         initComponents();
+    }
+    
+    @Override
+    public Image getIconImage(){
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images/moneda.png"));
+        return retValue;
     }
 
     /**
@@ -40,6 +50,9 @@ public class Ventana extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Coti");
+        setIconImage(getIconImage());
+        setResizable(false);
 
         lblTitulo.setFont(new java.awt.Font("Calibri Light", 0, 36)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(102, 102, 102));
@@ -53,7 +66,7 @@ public class Ventana extends javax.swing.JFrame {
         lbTarifa.setAutoscrolls(true);
         lbTarifa.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lblTituloTarifa.setFont(new java.awt.Font("Calibri Light", 0, 24)); // NOI18N
+        lblTituloTarifa.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
         lblTituloTarifa.setForeground(new java.awt.Color(51, 51, 51));
         lblTituloTarifa.setText("Tarifa");
 
@@ -156,10 +169,8 @@ public class Ventana extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbTarifa, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblTituloTarifa)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                    .addComponent(lblTituloTarifa))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(checkJubilado)
@@ -168,26 +179,26 @@ public class Ventana extends javax.swing.JFrame {
                         .addComponent(checkBrasil)
                         .addGap(11, 11, 11)))
                 .addGap(33, 33, 33))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(102, 102, 102)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTitulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(104, 104, 104))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(lblTitulo)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
+                        .addGap(60, 60, 60)
                         .addComponent(btnLocal)
                         .addGap(21, 21, 21)
                         .addComponent(btnMerco)
                         .addGap(18, 18, 18)
                         .addComponent(btnExtran))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblTitulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblTituloTarifa)
@@ -200,7 +211,7 @@ public class Ventana extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(checkBrasil)))
                         .addGap(5, 5, 5)))
-                .addContainerGap())
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
