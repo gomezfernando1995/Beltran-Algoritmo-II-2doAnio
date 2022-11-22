@@ -25,54 +25,25 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        hamburguesa = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        img_fondo = new javax.swing.JLabel();
+        img_patron = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel1.setForeground(new java.awt.Color(102, 102, 102));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        hamburguesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/hamburguesa.png"))); // NOI18N
+        getContentPane().add(hamburguesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 470, 330));
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204,230));
+        jLabel1.setFont(new java.awt.Font("Ananda", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Codigo de Producto");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 240, 30));
 
-        jLabel1.setText("Ingrese codigo");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(jLabel1)
-                .addContainerGap(432, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel1)
-                .addContainerGap(269, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 610, 320));
-
-        img_fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pared.jpg"))); // NOI18N
-        jPanel1.add(img_fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 400));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        img_patron.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/27240 [Convertido].png"))); // NOI18N
+        img_patron.setText("jLabel1");
+        getContentPane().add(img_patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 0, 1090, 650));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -113,9 +84,8 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel img_fondo;
+    private javax.swing.JLabel hamburguesa;
+    private javax.swing.JLabel img_patron;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
