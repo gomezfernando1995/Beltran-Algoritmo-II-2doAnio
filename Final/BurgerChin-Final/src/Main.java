@@ -1,9 +1,10 @@
 
 import font.Fuentes;
-import java.awt.Color;
+import java.net.URL;
+import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,13 +13,32 @@ import javax.swing.ImageIcon;
 public class Main extends javax.swing.JFrame {
 
     Fuentes tipoFuente;
+    ArrayList<Producto> productos = new ArrayList();
+    Producto producto = new Producto();
+    DefaultTableModel modelo = new DefaultTableModel();
+
     public Main() {
         initComponents();
-       
+        setIconImage(new ImageIcon(getClass().getResource("img/logo.png")).getImage());
+        //AGREGADO DE FUENTES EXTERNAS
         tipoFuente = new Fuentes();
-        lblCodProducto.setFont(tipoFuente.fuente(tipoFuente.FLAME_regular_otf,2, 20));
-        txtCodProducto.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf,0, 17));
-        tblEleccion.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf,0, 14));
+        lblCodProducto.setFont(tipoFuente.fuente(tipoFuente.FLAME_regular_otf, 2, 20));
+        txtCodProducto.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 17));
+        tblEleccion.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
+        lblTotal.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 1, 14));
+        lblCambio.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 1, 14));
+        lblSuPago.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 1, 14));
+        txtTotal.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
+        txtCambio.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
+        txtSuPago.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
+
+        //AGREGADO DE NOMBRES A LA TABLA
+        tblEleccion.setModel(modelo);
+        modelo.addColumn("CODIGO");
+        modelo.addColumn("TIPO");
+        modelo.addColumn("DESCRIPCION");
+        modelo.addColumn("PRECIO");
+
     }
 
     /**
@@ -30,36 +50,49 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblCodProducto = new javax.swing.JLabel();
         lblCheck = new javax.swing.JLabel();
+        lblCodProducto = new javax.swing.JLabel();
         hamburguesa = new javax.swing.JLabel();
         pnl = new javax.swing.JScrollPane();
         tblEleccion = new javax.swing.JTable();
         txtCodProducto = new javax.swing.JTextField();
+        btnFinalizarPedido = new javax.swing.JLabel();
+        txtSuPago = new javax.swing.JTextField();
+        txtCambio = new javax.swing.JTextField();
+        lblTotal = new javax.swing.JLabel();
+        lblCambio = new javax.swing.JLabel();
+        lblSuPago = new javax.swing.JLabel();
+        barra = new javax.swing.JPanel();
+        txtTotal = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         img_patron = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("BurgerChin - Sistema de Pedido");
         setLocation(new java.awt.Point(250, 75));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblCodProducto.setBackground(new java.awt.Color(255, 51, 51));
-        lblCodProducto.setFont(new java.awt.Font("Bahnschrift", 0, 24)); // NOI18N
-        lblCodProducto.setForeground(new java.awt.Color(84, 37, 6));
-        lblCodProducto.setText("Codigo Producto:");
-        getContentPane().add(lblCodProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, 40));
-
-        lblCheck.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-casilla-de-verificación-marcada-40.png"))); // NOI18N
+        lblCheck.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/off.png"))); // NOI18N
         lblCheck.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblCheck.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCheckMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblCheckMouseEntered(evt);
             }
         });
-        getContentPane().add(lblCheck, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, -1, 30));
+        getContentPane().add(lblCheck, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 60, 40, 30));
+
+        lblCodProducto.setBackground(new java.awt.Color(255, 51, 51));
+        lblCodProducto.setFont(new java.awt.Font("Bahnschrift", 0, 24)); // NOI18N
+        lblCodProducto.setForeground(new java.awt.Color(59, 26, 4));
+        lblCodProducto.setText("Codigo Producto:");
+        getContentPane().add(lblCodProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, 40));
 
         hamburguesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/burger.png"))); // NOI18N
-        getContentPane().add(hamburguesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, -1, 330));
+        getContentPane().add(hamburguesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, -1, 320));
 
         tblEleccion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,7 +110,7 @@ public class Main extends javax.swing.JFrame {
         tblEleccion.setSelectionForeground(new java.awt.Color(204, 204, 204));
         pnl.setViewportView(tblEleccion);
 
-        getContentPane().add(pnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 560, 230));
+        getContentPane().add(pnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 570, 240));
 
         txtCodProducto.setForeground(new java.awt.Color(65, 34, 0));
         txtCodProducto.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -88,12 +121,59 @@ public class Main extends javax.swing.JFrame {
                 txtCodProductoActionPerformed(evt);
             }
         });
-        getContentPane().add(txtCodProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 390, 30));
+        getContentPane().add(txtCodProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 390, 30));
+
+        btnFinalizarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_finalizar-pedido.png"))); // NOI18N
+        btnFinalizarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(btnFinalizarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 390, -1, -1));
+
+        txtSuPago.setBackground(new java.awt.Color(249, 210, 167));
+        txtSuPago.setSelectionColor(new java.awt.Color(255, 51, 0));
+        txtSuPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSuPagoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtSuPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 470, 170, 30));
+
+        txtCambio.setBackground(new java.awt.Color(249, 210, 167));
+        txtCambio.setSelectionColor(new java.awt.Color(255, 51, 0));
+        txtCambio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCambioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 470, 160, 30));
+
+        lblTotal.setForeground(new java.awt.Color(84, 42, 0));
+        lblTotal.setText("TOTAL");
+        getContentPane().add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, 50, -1));
+
+        lblCambio.setForeground(new java.awt.Color(84, 44, 4));
+        lblCambio.setText("CAMBIO");
+        getContentPane().add(lblCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 450, 90, 20));
+
+        lblSuPago.setForeground(new java.awt.Color(65, 32, 0));
+        lblSuPago.setText("SU PAGO");
+        getContentPane().add(lblSuPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 450, -1, -1));
+
+        barra.setBackground(new java.awt.Color(115, 76, 50));
+        getContentPane().add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 20));
+
+        txtTotal.setEditable(false);
+        txtTotal.setBackground(new java.awt.Color(249, 210, 167));
+        txtTotal.setEnabled(false);
+        txtTotal.setSelectionColor(new java.awt.Color(255, 51, 51));
+        getContentPane().add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 400, 170, 30));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lista.png"))); // NOI18N
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 50, -1, 50));
 
         img_patron.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/gradient.jpeg"))); // NOI18N
         img_patron.setText("jLabel1");
         img_patron.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().add(img_patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, 0, 900, 510));
+        getContentPane().add(img_patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, 0, 920, 530));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -103,10 +183,21 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodProductoActionPerformed
 
     private void lblCheckMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCheckMouseEntered
-        ImageIcon icono = new ImageIcon("src/img/on.pgn");
-        Icon ico =new ImageIcon(icono.getImage());
-        lblCheck.setIcon(ico);
+
+
     }//GEN-LAST:event_lblCheckMouseEntered
+
+    private void txtSuPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSuPagoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSuPagoActionPerformed
+
+    private void txtCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCambioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCambioActionPerformed
+
+    private void lblCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCheckMouseClicked
+      
+    }//GEN-LAST:event_lblCheckMouseClicked
 
     /**
      * @param args the command line arguments
@@ -144,12 +235,25 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel barra;
+    private javax.swing.JLabel btnFinalizarPedido;
     private javax.swing.JLabel hamburguesa;
     private javax.swing.JLabel img_patron;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblCambio;
     private javax.swing.JLabel lblCheck;
     private javax.swing.JLabel lblCodProducto;
+    private javax.swing.JLabel lblSuPago;
+    private javax.swing.JLabel lblTotal;
     private javax.swing.JScrollPane pnl;
     private javax.swing.JTable tblEleccion;
+    private javax.swing.JTextField txtCambio;
     private javax.swing.JTextField txtCodProducto;
+    private javax.swing.JTextField txtSuPago;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
+
+    private Icon ImageIcon(URL resource) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
