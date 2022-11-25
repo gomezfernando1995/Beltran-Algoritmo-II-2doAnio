@@ -5,6 +5,14 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,14 +20,36 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Main extends javax.swing.JFrame {
 
+    // DATOS DE LA BASE DE DATS
+    String bd = "mc-boliche";
+    String url = "jdbc:mysql://localhost:3306/";
+    String user = "root";
+    String password = "1234";
+    String driver = "com.mysql.cj.jdbc.Driver";
+    Connection cx;
+    ResultSet rs;
+    PreparedStatement st;
+
     Fuentes tipoFuente;
     ArrayList<Producto> productos = new ArrayList();
     Producto producto = new Producto();
     DefaultTableModel modelo = new DefaultTableModel();
 
-    public Main() {
+    public Main() throws SQLException {
+
+        //Conecto a la base de datos
+        try {
+            Class.forName(driver);
+            cx = DriverManager.getConnection(url + bd, user, password);
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println("NO SE CONECTÓ a la base de datos: " + bd);
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         initComponents();
+        //SETEAMOS ICONO
         setIconImage(new ImageIcon(getClass().getResource("img/logo.png")).getImage());
+
         //AGREGADO DE FUENTES EXTERNAS
         tipoFuente = new Fuentes();
         lblCodProducto.setFont(tipoFuente.fuente(tipoFuente.FLAME_regular_otf, 2, 20));
@@ -196,7 +226,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCambioActionPerformed
 
     private void lblCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCheckMouseClicked
-      
+
     }//GEN-LAST:event_lblCheckMouseClicked
 
     /**
@@ -229,7 +259,12 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+
+                try {
+                    new Main().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
