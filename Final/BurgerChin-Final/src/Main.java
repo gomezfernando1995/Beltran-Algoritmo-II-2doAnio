@@ -1,18 +1,21 @@
 
 import font.Fuentes;
 import java.net.URL;
+
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,8 +34,8 @@ public class Main extends javax.swing.JFrame {
     PreparedStatement st;
 
     Fuentes tipoFuente;
-    ArrayList<Producto> productos = new ArrayList();
     Producto producto = new Producto();
+    ArrayList<Producto> aList_productos = new ArrayList();
     DefaultTableModel modelo = new DefaultTableModel();
 
     public Main() throws SQLException {
@@ -68,6 +71,7 @@ public class Main extends javax.swing.JFrame {
         modelo.addColumn("TIPO");
         modelo.addColumn("DESCRIPCION");
         modelo.addColumn("PRECIO");
+        modelo.addColumn("");
 
     }
 
@@ -94,7 +98,8 @@ public class Main extends javax.swing.JFrame {
         lblSuPago = new javax.swing.JLabel();
         barra = new javax.swing.JPanel();
         txtTotal = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        lblMapaDeComida = new javax.swing.JLabel();
+        lblClear = new javax.swing.JLabel();
         img_patron = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -113,7 +118,7 @@ public class Main extends javax.swing.JFrame {
                 lblCheckMouseEntered(evt);
             }
         });
-        getContentPane().add(lblCheck, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 60, 40, 30));
+        getContentPane().add(lblCheck, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 60, 40, 30));
 
         lblCodProducto.setBackground(new java.awt.Color(255, 51, 51));
         lblCodProducto.setFont(new java.awt.Font("Bahnschrift", 0, 24)); // NOI18N
@@ -145,7 +150,7 @@ public class Main extends javax.swing.JFrame {
         txtCodProducto.setForeground(new java.awt.Color(65, 34, 0));
         txtCodProducto.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtCodProducto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(251, 200, 149), 2, true));
-        txtCodProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtCodProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtCodProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodProductoActionPerformed(evt);
@@ -164,9 +169,16 @@ public class Main extends javax.swing.JFrame {
                 txtSuPagoActionPerformed(evt);
             }
         });
+        txtSuPago.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSuPagoKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtSuPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 470, 170, 30));
 
+        txtCambio.setEditable(false);
         txtCambio.setBackground(new java.awt.Color(249, 210, 167));
+        txtCambio.setEnabled(false);
         txtCambio.setSelectionColor(new java.awt.Color(255, 51, 0));
         txtCambio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,7 +200,8 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(lblSuPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 450, -1, -1));
 
         barra.setBackground(new java.awt.Color(115, 76, 50));
-        getContentPane().add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 20));
+        barra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 30));
 
         txtTotal.setEditable(false);
         txtTotal.setBackground(new java.awt.Color(249, 210, 167));
@@ -196,9 +209,12 @@ public class Main extends javax.swing.JFrame {
         txtTotal.setSelectionColor(new java.awt.Color(255, 51, 51));
         getContentPane().add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 400, 170, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lista.png"))); // NOI18N
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 50, -1, 50));
+        lblMapaDeComida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lista.png"))); // NOI18N
+        lblMapaDeComida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(lblMapaDeComida, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 50, -1, 50));
+
+        lblClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clear_off.png"))); // NOI18N
+        getContentPane().add(lblClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 50, 40, 50));
 
         img_patron.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/gradient.jpeg"))); // NOI18N
         img_patron.setText("jLabel1");
@@ -226,8 +242,34 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCambioActionPerformed
 
     private void lblCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCheckMouseClicked
+        // CONSULTAMOS A LA BASE DE DATOS SI EXISTE EL ID QUE SE INGRESO
+        try {
+            String codProducto = String.valueOf(txtCodProducto.getText());
+            st = cx.prepareStatement("SELECT * FROM productos WHERE idproducto= ?");
+            st.setString(1, codProducto);
+            rs = st.executeQuery();
+        } catch (SQLException ex) {
 
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // CARGA EL PRECIO TOTAL SIEMPRE QUE AGREGUE UN NUEVO ITEM A LA LISTA
+        double totalPrecio=0;        
+         for (int i = 0; i < aList_productos.size(); i++) {
+           totalPrecio+=aList_productos.get(i).getPrecio();
+        }
+        txtTotal.setText(  String.valueOf(totalPrecio));
     }//GEN-LAST:event_lblCheckMouseClicked
+
+    private void txtSuPagoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSuPagoKeyTyped
+        int key = evt.getKeyChar();
+
+        boolean numeros = key >= 48 && key <= 57 || key == 46;
+
+        if (!numeros) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSuPagoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -259,7 +301,6 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-
                 try {
                     new Main().setVisible(true);
                 } catch (SQLException ex) {
@@ -274,10 +315,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel btnFinalizarPedido;
     private javax.swing.JLabel hamburguesa;
     private javax.swing.JLabel img_patron;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblCambio;
     private javax.swing.JLabel lblCheck;
+    private javax.swing.JLabel lblClear;
     private javax.swing.JLabel lblCodProducto;
+    private javax.swing.JLabel lblMapaDeComida;
     private javax.swing.JLabel lblSuPago;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JScrollPane pnl;
