@@ -108,7 +108,7 @@ public class Main extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblCheck.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/off.png"))); // NOI18N
+        lblCheck.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/check_gris.png"))); // NOI18N
         lblCheck.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblCheck.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -124,7 +124,7 @@ public class Main extends javax.swing.JFrame {
         lblCodProducto.setFont(new java.awt.Font("Bahnschrift", 0, 24)); // NOI18N
         lblCodProducto.setForeground(new java.awt.Color(59, 26, 4));
         lblCodProducto.setText("Codigo Producto:");
-        getContentPane().add(lblCodProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, 40));
+        getContentPane().add(lblCodProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, 30));
 
         hamburguesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/burger.png"))); // NOI18N
         getContentPane().add(hamburguesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, -1, 320));
@@ -201,7 +201,7 @@ public class Main extends javax.swing.JFrame {
 
         barra.setBackground(new java.awt.Color(115, 76, 50));
         barra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 30));
+        getContentPane().add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 30));
 
         txtTotal.setEditable(false);
         txtTotal.setBackground(new java.awt.Color(249, 210, 167));
@@ -211,15 +211,16 @@ public class Main extends javax.swing.JFrame {
 
         lblMapaDeComida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lista.png"))); // NOI18N
         lblMapaDeComida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(lblMapaDeComida, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 50, -1, 50));
+        getContentPane().add(lblMapaDeComida, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 60, -1, 30));
 
         lblClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clear_off.png"))); // NOI18N
-        getContentPane().add(lblClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 50, 40, 50));
+        lblClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(lblClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 60, 40, 30));
 
         img_patron.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/gradient.jpeg"))); // NOI18N
         img_patron.setText("jLabel1");
         img_patron.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().add(img_patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, 0, 920, 530));
+        getContentPane().add(img_patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, 0, 930, 530));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
