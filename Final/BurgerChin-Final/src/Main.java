@@ -230,7 +230,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodProductoActionPerformed
 
     private void lblCheckMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCheckMouseEntered
-
+lblCheck.
 
     }//GEN-LAST:event_lblCheckMouseEntered
 
@@ -249,6 +249,10 @@ public class Main extends javax.swing.JFrame {
             st = cx.prepareStatement("SELECT * FROM productos WHERE idproducto= ?");
             st.setString(1, codProducto);
             rs = st.executeQuery();
+     
+            
+            
+            
         } catch (SQLException ex) {
 
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
