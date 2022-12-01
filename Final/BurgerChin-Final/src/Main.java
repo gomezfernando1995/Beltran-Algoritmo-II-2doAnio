@@ -29,9 +29,7 @@ public class Main extends javax.swing.JFrame {
     Connection cx;
     ResultSet rs;
     PreparedStatement st;
-
     Fuentes tipoFuente;
-
     ArrayList<Producto> aList_productos = new ArrayList();
     DefaultTableModel modelo = new DefaultTableModel();
 
@@ -49,25 +47,10 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         //SETEAMOS ICONO
         setIconImage(new ImageIcon(getClass().getResource("img/logo.png")).getImage());
-
         //AGREGADO DE FUENTES EXTERNAS
-        tipoFuente = new Fuentes();
-        lblCodProducto.setFont(tipoFuente.fuente(tipoFuente.FLAME_regular_otf, 2, 20));
-        txtCodProducto.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 17));
-        tblEleccion.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
-        lblTotal.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 1, 14));
-        lblCambio.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 1, 14));
-        lblSuPago.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 1, 14));
-        txtTotal.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
-        txtCambio.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
-        txtSuPago.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
-
+        setDeFuentes();
         //AGREGADO DE NOMBRES A LA TABLA
-        tblEleccion.setModel(modelo);
-        modelo.addColumn("CODIGO");
-        modelo.addColumn("TIPO");
-        modelo.addColumn("DESCRIPCION");
-        modelo.addColumn("PRECIO");
+        setTabla();
 
     }
 
@@ -97,6 +80,7 @@ public class Main extends javax.swing.JFrame {
         lblMapaDeComida = new javax.swing.JLabel();
         lblError = new javax.swing.JLabel();
         lblClear = new javax.swing.JLabel();
+        lblSupago_error = new javax.swing.JLabel();
         img_patron = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -138,8 +122,11 @@ public class Main extends javax.swing.JFrame {
             }
         ));
         tblEleccion.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        tblEleccion.setSelectionBackground(new java.awt.Color(255, 230, 204));
-        tblEleccion.setSelectionForeground(new java.awt.Color(204, 204, 204));
+        tblEleccion.setGridColor(new java.awt.Color(0, 0, 0));
+        tblEleccion.setName(""); // NOI18N
+        tblEleccion.setSelectionBackground(new java.awt.Color(204, 102, 0));
+        tblEleccion.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblEleccion.setShowHorizontalLines(true);
         pnl.setViewportView(tblEleccion);
 
         getContentPane().add(pnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 570, 240));
@@ -153,10 +140,28 @@ public class Main extends javax.swing.JFrame {
                 txtCodProductoActionPerformed(evt);
             }
         });
+        txtCodProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodProductoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodProductoKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtCodProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 390, 30));
 
         btnFinalizarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_finalizar-pedido.png"))); // NOI18N
         btnFinalizarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFinalizarPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFinalizarPedidoMouseClicked(evt);
+            }
+        });
+        btnFinalizarPedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnFinalizarPedidoKeyPressed(evt);
+            }
+        });
         getContentPane().add(btnFinalizarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 390, -1, -1));
 
         txtSuPago.setBackground(new java.awt.Color(249, 210, 167));
@@ -175,7 +180,6 @@ public class Main extends javax.swing.JFrame {
 
         txtCambio.setEditable(false);
         txtCambio.setBackground(new java.awt.Color(249, 210, 167));
-        txtCambio.setEnabled(false);
         txtCambio.setSelectionColor(new java.awt.Color(255, 51, 0));
         txtCambio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,6 +211,11 @@ public class Main extends javax.swing.JFrame {
 
         lblMapaDeComida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lista.png"))); // NOI18N
         lblMapaDeComida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblMapaDeComida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblMapaDeComidaMouseClicked(evt);
+            }
+        });
         getContentPane().add(lblMapaDeComida, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 60, -1, 30));
 
         lblError.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -215,7 +224,11 @@ public class Main extends javax.swing.JFrame {
 
         lblClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clear_off.png"))); // NOI18N
         lblClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(lblClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 60, 40, 30));
+        getContentPane().add(lblClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 40, 30));
+
+        lblSupago_error.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        lblSupago_error.setForeground(new java.awt.Color(255, 0, 0));
+        getContentPane().add(lblSupago_error, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 500, 150, 20));
 
         img_patron.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/gradient.jpeg"))); // NOI18N
         img_patron.setText("jLabel1");
@@ -226,11 +239,10 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCodProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodProductoActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtCodProductoActionPerformed
 
     private void lblCheckMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCheckMouseEntered
-
 
     }//GEN-LAST:event_lblCheckMouseEntered
 
@@ -243,59 +255,54 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCambioActionPerformed
 
     private void lblCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCheckMouseClicked
-        // CONSULTAMOS A LA BASE DE DATOS SI EXISTE EL ID QUE SE INGRESO
-        double totalPrecio = 0;
-        String vector[] = new String[4];
-        Producto aProducto = new Producto();
-        String codProducto = String.valueOf(txtCodProducto.getText());
-        try {
-            st = cx.prepareStatement("SELECT * FROM productos ");
-            rs = st.executeQuery();
-
-            while (rs.next()) {
-
-                // CARGAMOS EL VECTOR CON DATOS OBTENIDOS
-                vector[0] = rs.getString("idproducto");
-                vector[1] = rs.getString("tipo");
-                vector[2] = rs.getString("descripcion");
-                vector[3] = rs.getString("precio");
-
-                //COMPARAMOS SI EL CODIGO INGRESADO EN INTERFAZ ES IGUAL AL CODIGO OBTENIDO DE LA BD
-                if (codProducto.equals(vector[0])) {
-                    lblError.setText("");
-                    modelo.addRow(vector);
-                    txtCodProducto.setText("");
-                    txtCodProducto.requestFocus();
-                    
-                    aProducto.setPrecio(Float.parseFloat(vector[3]));
-                    aList_productos.add(aProducto);
-                    break;
-
-                } else {
-                    lblError.setText("Codigo inexistente");
-                    txtCodProducto.requestFocus();
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        // SUMAMOS TODOS LOS PRODUCTOS DE LA LISTA Y SE MUESTRA EN PANTALLA
-        for (int i = 0; i < aList_productos.size(); i++) {
-            totalPrecio += aList_productos.get(i).getPrecio();
-        }
-        txtTotal.setText(String.valueOf(totalPrecio));
+        buscar();
     }//GEN-LAST:event_lblCheckMouseClicked
 
 
-    
     private void txtSuPagoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSuPagoKeyTyped
-        int key = evt.getKeyChar();
-        boolean numeros = key >= 48 && key <= 57 || key == 46;
-        if (!numeros) {
-            evt.consume();
-        }
+        soloDecimal(evt);
     }//GEN-LAST:event_txtSuPagoKeyTyped
+
+
+    private void txtCodProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodProductoKeyPressed
+        char c = (char) evt.getKeyChar();
+        if (c == evt.VK_ENTER) {
+            buscar();
+        }
+    }//GEN-LAST:event_txtCodProductoKeyPressed
+
+    private void txtCodProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodProductoKeyTyped
+        soloEnteros(evt);
+    }//GEN-LAST:event_txtCodProductoKeyTyped
+
+    private void btnFinalizarPedidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoKeyPressed
+
+
+    }//GEN-LAST:event_btnFinalizarPedidoKeyPressed
+
+    private void btnFinalizarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoMouseClicked
+
+        if (!(txtTotal.getText().equals(""))) {
+
+            if (!(txtSuPago.getText().equals(""))) {
+                double totalItem = Double.parseDouble(txtTotal.getText());
+                double totalIngresado = Double.parseDouble(txtSuPago.getText());
+                if (totalIngresado < totalItem) {
+                    lblSupago_error.setText("Ingrese un pago mayor!");
+                } else {
+                    txtCambio.setText(String.valueOf(totalIngresado - totalItem));
+                     lblSupago_error.setText("");
+                }
+            } else {
+                lblSupago_error.setText("Ingrese su pago!");
+            }
+        }
+    }//GEN-LAST:event_btnFinalizarPedidoMouseClicked
+
+    private void lblMapaDeComidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMapaDeComidaMouseClicked
+        new Listado().setVisible(true);
+        
+    }//GEN-LAST:event_lblMapaDeComidaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -336,6 +343,109 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
+    /*
+     * ***********************************************************************************
+     * ****************************** METODOS PROPIOS ************************************
+     * ***********************************************************************************
+     */
+    //SET DE TABLA DE INTERFAZ
+    private void setTabla() {
+        tblEleccion.setModel(modelo);
+        modelo.addColumn("CODIGO");
+        modelo.addColumn("TIPO");
+        modelo.addColumn("DESCRIPCION");
+        modelo.addColumn("PRECIO");
+    }
+
+    // PERMITE ESCRIBIR SOLO VALORES ENTEROS
+    private void soloEnteros(java.awt.event.KeyEvent evt) {
+        int key = evt.getKeyChar();
+        boolean numeros = key >= 48 && key <= 57 || key == 46;
+        if (!numeros) {
+            evt.consume();
+        }
+    }
+
+    // PERMITE ESCRIBIR SOLO  VALORES DECIMALES
+    private void soloDecimal(java.awt.event.KeyEvent evt) {
+        int key = evt.getKeyChar();
+        boolean numeros = key >= 48 && key <= 57 || key == 46 || key == 44;
+        if (!numeros) {
+            evt.consume();
+        }
+    }
+
+    // SUMA LOS PRECIOS DE LOS ITEMS SELECCIONADOS DE LA TABLA 
+    private void sumarPrecio() {
+        double totalPrecio = 0;
+        // SUMAMOS TODOS LOS PRODUCTOS DE LA LISTA Y SE MUESTRA EN PANTALLA
+        for (int i = 0; i < aList_productos.size(); i++) {
+            totalPrecio += aList_productos.get(i).getPrecio();
+        }
+        txtTotal.setText(String.valueOf(totalPrecio));
+    }
+
+    //SET DE FUENTES
+    private void setDeFuentes() {
+        tipoFuente = new Fuentes();
+        lblCodProducto.setFont(tipoFuente.fuente(tipoFuente.FLAME_regular_otf, 2, 20));
+        txtCodProducto.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 17));
+        tblEleccion.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
+        lblTotal.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 1, 14));
+        lblCambio.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 1, 14));
+        lblSuPago.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 1, 14));
+        txtTotal.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
+        txtCambio.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
+        txtSuPago.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
+
+    }
+
+    // FUNCION PARA BUSCAR Y AGREGAR PRODUCTOS A LA TABLA, ADEMAS IRA SUMANDO LA MISMA.
+    private void buscar() {
+
+        // CONSULTAMOS A LA BASE DE DATOS SI EXISTE EL ID QUE SE INGRESO
+        String vector[] = new String[4];
+        Producto aProducto = new Producto();
+        String codProducto = String.valueOf(txtCodProducto.getText());
+        try {
+            st = cx.prepareStatement("SELECT * FROM productos ");
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+                // CARGAMOS EL VECTOR CON DATOS OBTENIDOS
+                vector[0] = rs.getString("idproducto");
+                vector[1] = rs.getString("tipo");
+                vector[2] = rs.getString("descripcion");
+                vector[3] = rs.getString("precio");
+                //COMPARAMOS SI EL CODIGO INGRESADO EN INTERFAZ ES IGUAL AL CODIGO OBTENIDO DE LA BD
+                if (codProducto.equals("")) {
+                    lblError.setText("Ingrese codigo!!");
+                } else {
+
+                    if (codProducto.equals(vector[0])) {
+                        lblError.setText("");
+                        modelo.addRow(vector);
+                        txtCodProducto.setText("");
+                        txtCodProducto.requestFocus();
+
+                        aProducto.setPrecio(Float.parseFloat(vector[3]));
+                        aList_productos.add(aProducto);
+                        sumarPrecio();
+                        break;
+
+                    } else {
+                        lblError.setText("Codigo inexistente");
+                        txtCodProducto.requestFocus();
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barra;
     private javax.swing.JLabel btnFinalizarPedido;
@@ -348,6 +458,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblMapaDeComida;
     private javax.swing.JLabel lblSuPago;
+    private javax.swing.JLabel lblSupago_error;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JScrollPane pnl;
     private javax.swing.JTable tblEleccion;
