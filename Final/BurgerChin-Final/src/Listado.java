@@ -1,5 +1,7 @@
 
 
+import java.awt.Color;
+import static java.awt.Color.red;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Connection;
@@ -27,6 +29,7 @@ public class Listado extends javax.swing.JFrame {
     Connection cx;
     ResultSet rs;
     PreparedStatement st;
+    private int xMouse,yMouse;
 
     /**
      * Creates new form Listado
@@ -57,11 +60,13 @@ public class Listado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        pnlExit = new javax.swing.JPanel();
+        lblExit = new javax.swing.JLabel();
+        pnlBarra = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(250, 75));
@@ -69,13 +74,49 @@ public class Listado extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(115, 76, 50));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlExit.setBackground(new java.awt.Color(115, 76, 50));
+        pnlExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlExitMouseClicked(evt);
+            }
+        });
+        pnlExit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblExit.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        lblExit.setForeground(new java.awt.Color(204, 204, 204));
+        lblExit.setText("   X");
+        lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblExitMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblExitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblExitMouseExited(evt);
+            }
+        });
+        pnlExit.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 40, 30));
+
+        getContentPane().add(pnlExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 0, 40, 30));
+
+        pnlBarra.setBackground(new java.awt.Color(115, 76, 50));
+        pnlBarra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                pnlBarraMouseDragged(evt);
+            }
+        });
+        pnlBarra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlBarraMousePressed(evt);
+            }
+        });
+        pnlBarra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lg2.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
+        pnlBarra.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 40));
+        getContentPane().add(pnlBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 30));
 
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -101,11 +142,44 @@ public class Listado extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 530, 290));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/gradient.jpeg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 330));
+        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/gradient.jpeg"))); // NOI18N
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 330));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseEntered
+        Color reds = new Color(236,40,40);
+        pnlExit.setBackground(reds);
+        lblExit.setForeground(Color.WHITE);
+    }//GEN-LAST:event_lblExitMouseEntered
+
+    private void lblExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseExited
+       Color marron = new Color(115,76,50);
+       Color gris = new Color(204,204,204);
+        pnlExit.setBackground(marron);
+        lblExit.setForeground(gris);
+    }//GEN-LAST:event_lblExitMouseExited
+
+    private void pnlExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlExitMouseClicked
+     
+    }//GEN-LAST:event_pnlExitMouseClicked
+
+    private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
+         dispose();
+    }//GEN-LAST:event_lblExitMouseClicked
+
+    private void pnlBarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBarraMousePressed
+       xMouse =evt.getX();
+        yMouse =evt.getY();
+    }//GEN-LAST:event_pnlBarraMousePressed
+
+    private void pnlBarraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBarraMouseDragged
+       int x= evt.getXOnScreen();
+        int y= evt.getYOnScreen();
+        
+        this.setLocation(x-xMouse, y-yMouse);
+    }//GEN-LAST:event_pnlBarraMouseDragged
 
     /**
      * @param args the command line arguments
@@ -176,10 +250,12 @@ public class Listado extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblExit;
+    private javax.swing.JLabel lblFondo;
+    private javax.swing.JPanel pnlBarra;
+    private javax.swing.JPanel pnlExit;
     private javax.swing.JTable tblProductos;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -90,7 +89,7 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblCheck.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/check_gris.png"))); // NOI18N
-        lblCheck.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCheck.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblCheck.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblCheckMouseClicked(evt);
@@ -151,7 +150,7 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(txtCodProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 390, 30));
 
         btnFinalizarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_finalizar-pedido.png"))); // NOI18N
-        btnFinalizarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFinalizarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnFinalizarPedido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnFinalizarPedidoMouseClicked(evt);
@@ -164,6 +163,7 @@ public class Main extends javax.swing.JFrame {
         });
         getContentPane().add(btnFinalizarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 390, -1, -1));
 
+        txtSuPago.setEditable(false);
         txtSuPago.setBackground(new java.awt.Color(249, 210, 167));
         txtSuPago.setSelectionColor(new java.awt.Color(255, 51, 0));
         txtSuPago.addActionListener(new java.awt.event.ActionListener() {
@@ -210,7 +210,7 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 400, 170, 30));
 
         lblMapaDeComida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lista.png"))); // NOI18N
-        lblMapaDeComida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblMapaDeComida.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblMapaDeComida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblMapaDeComidaMouseClicked(evt);
@@ -223,7 +223,7 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 280, 20));
 
         lblClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clear_off.png"))); // NOI18N
-        lblClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblClear.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().add(lblClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 40, 30));
 
         lblSupago_error.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -292,6 +292,8 @@ public class Main extends javax.swing.JFrame {
                 } else {
                     txtCambio.setText(String.valueOf(totalIngresado - totalItem));
                      lblSupago_error.setText("");
+                     txtSuPago.setEditable(false);
+                     txtCambio.requestFocus();
                 }
             } else {
                 lblSupago_error.setText("Ingrese su pago!");
@@ -332,13 +334,11 @@ public class Main extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new Main().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new Main().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
@@ -431,6 +431,7 @@ public class Main extends javax.swing.JFrame {
                         aProducto.setPrecio(Float.parseFloat(vector[3]));
                         aList_productos.add(aProducto);
                         sumarPrecio();
+                        txtSuPago.setEditable(true);
                         break;
 
                     } else {
