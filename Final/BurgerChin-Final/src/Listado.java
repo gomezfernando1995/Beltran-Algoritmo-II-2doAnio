@@ -66,7 +66,7 @@ public class Listado extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
-        lblFondo = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(250, 75));
@@ -100,7 +100,9 @@ public class Listado extends javax.swing.JFrame {
 
         getContentPane().add(pnlExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 0, 40, 30));
 
-        pnlBarra.setBackground(new java.awt.Color(115, 76, 50));
+        pnlBarra.setBackground(new java.awt.Color(220, 177, 105));
+        pnlBarra.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlBarra.setForeground(new java.awt.Color(204, 204, 204));
         pnlBarra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 pnlBarraMouseDragged(evt);
@@ -140,10 +142,11 @@ public class Listado extends javax.swing.JFrame {
         tblProductos.setName(""); // NOI18N
         jScrollPane1.setViewportView(tblProductos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 530, 290));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 530, 280));
 
-        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/gradient.jpeg"))); // NOI18N
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 330));
+        jPanel1.setBackground(new java.awt.Color(115, 76, 50));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 330));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -251,9 +254,9 @@ public class Listado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblExit;
-    private javax.swing.JLabel lblFondo;
     private javax.swing.JPanel pnlBarra;
     private javax.swing.JPanel pnlExit;
     private javax.swing.JTable tblProductos;

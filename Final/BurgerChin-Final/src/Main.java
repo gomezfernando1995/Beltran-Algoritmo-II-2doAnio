@@ -1,5 +1,6 @@
 
 import font.Fuentes;
+import java.awt.Color;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -12,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import static javafx.application.Platform.exit;
 
 /**
  *
@@ -81,6 +83,7 @@ public class Main extends javax.swing.JFrame {
         lblClear = new javax.swing.JLabel();
         lblSupago_error = new javax.swing.JLabel();
         img_patron = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("BurgerChin - Sistema de Pedido");
@@ -89,7 +92,7 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblCheck.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/check_gris.png"))); // NOI18N
-        lblCheck.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblCheck.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblCheck.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblCheckMouseClicked(evt);
@@ -150,7 +153,7 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(txtCodProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 390, 30));
 
         btnFinalizarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_finalizar-pedido.png"))); // NOI18N
-        btnFinalizarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnFinalizarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFinalizarPedido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnFinalizarPedidoMouseClicked(evt);
@@ -210,7 +213,7 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 400, 170, 30));
 
         lblMapaDeComida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lista.png"))); // NOI18N
-        lblMapaDeComida.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblMapaDeComida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblMapaDeComida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblMapaDeComidaMouseClicked(evt);
@@ -223,7 +226,7 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 280, 20));
 
         lblClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clear_off.png"))); // NOI18N
-        lblClear.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(lblClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 40, 30));
 
         lblSupago_error.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -232,8 +235,12 @@ public class Main extends javax.swing.JFrame {
 
         img_patron.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/gradient.jpeg"))); // NOI18N
         img_patron.setText("jLabel1");
+        img_patron.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         img_patron.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().add(img_patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, 0, 930, 530));
+        getContentPane().add(img_patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, 20, 930, 510));
+
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -291,9 +298,9 @@ public class Main extends javax.swing.JFrame {
                     lblSupago_error.setText("Ingrese un pago mayor!");
                 } else {
                     txtCambio.setText(String.valueOf(totalIngresado - totalItem));
-                     lblSupago_error.setText("");
-                     txtSuPago.setEditable(false);
-                     txtCambio.requestFocus();
+                    lblSupago_error.setText("");
+                    txtSuPago.setEditable(false);
+                    txtCambio.requestFocus();
                 }
             } else {
                 lblSupago_error.setText("Ingrese su pago!");
@@ -303,7 +310,7 @@ public class Main extends javax.swing.JFrame {
 
     private void lblMapaDeComidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMapaDeComidaMouseClicked
         new Listado().setVisible(true);
-        
+
     }//GEN-LAST:event_lblMapaDeComidaMouseClicked
 
     /**
@@ -397,7 +404,7 @@ public class Main extends javax.swing.JFrame {
         txtTotal.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
         txtCambio.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
         txtSuPago.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
-
+       
     }
 
     // FUNCION PARA BUSCAR Y AGREGAR PRODUCTOS A LA TABLA, ADEMAS IRA SUMANDO LA MISMA.
@@ -443,7 +450,7 @@ public class Main extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
 
@@ -452,6 +459,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel btnFinalizarPedido;
     private javax.swing.JLabel hamburguesa;
     private javax.swing.JLabel img_patron;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblCambio;
     private javax.swing.JLabel lblCheck;
     private javax.swing.JLabel lblClear;
