@@ -1,6 +1,6 @@
 
 import font.Fuentes;
-import java.awt.Color;
+//import java.awt.Color;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -13,7 +13,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static javafx.application.Platform.exit;
+
 
 /**
  *
@@ -288,34 +288,53 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFinalizarPedidoKeyPressed
 
     private void btnFinalizarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoMouseClicked
+       
 
-        if (!(txtTotal.getText().equals(""))) {
-
-            if (!(txtSuPago.getText().equals(""))) {
+        // VERIFICO QUE TOTAL NO ESTE VACIO, SI NO HAY MONTO SIGNIFICA QUE NO SE HAN CARGADO PRODUCTOS .         
+        
+         if (!(txtTotal.getText().equals(""))) 
+         {
+            
+        // VEFICAMOS QUE SE HAYA INGRESADO EL PAGO.
+        
+            if (!(txtSuPago.getText().equals(""))) 
+            {
                 double totalItem = Double.parseDouble(txtTotal.getText());
                 double totalIngresado = Double.parseDouble(txtSuPago.getText());
-                if (totalIngresado < totalItem) {
+                
+                // VERIFICAMOS QUE EL MONTO INGRESADO SEA MAYOR AL MONTO TOTAL, DE LO CONTRARIO MUESTRA EL ERROR EN LA INTERFAZ. 
+                if (totalIngresado < totalItem) 
+                {
                     lblSupago_error.setText("Ingrese un pago mayor!");
-                } else {
+                } 
+                
+                // SI ESTA TODO CORRECTO PROCEDERA A HACER EL CALCULO Y MOSTRARLO EN EL  INPUT CAMBIO.
+                else 
+                { 
                     txtCambio.setText(String.valueOf(totalIngresado - totalItem));
                     lblSupago_error.setText("");
                     txtSuPago.setEditable(false);
                     txtCambio.requestFocus();
                 }
-            } else {
+            }
+            
+            // MOSTRARA ERROR EN EL CASO DE QUE NO SE HAYA INGRESADO EL PAGO
+            else 
+            {
                 lblSupago_error.setText("Ingrese su pago!");
             }
         }
     }//GEN-LAST:event_btnFinalizarPedidoMouseClicked
-
+  
+/*
+    MOSTRARA LA LISTA DE PRODUCTOS 
+*/ 
     private void lblMapaDeComidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMapaDeComidaMouseClicked
-        new Listado().setVisible(true);
+        new Listado().setVisible(true); 
 
     }//GEN-LAST:event_lblMapaDeComidaMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -351,9 +370,9 @@ public class Main extends javax.swing.JFrame {
     }
 
     /*
-     * ***********************************************************************************
-     * ****************************** METODOS PROPIOS ************************************
-     * ***********************************************************************************
+     * *********************************************************************************************************************************************
+     * ************************************             METODOS PROPIOS                            ************************************************
+     * *********************************************************************************************************************************************
      */
     //SET DE TABLA DE INTERFAZ
     private void setTabla() {
@@ -404,50 +423,62 @@ public class Main extends javax.swing.JFrame {
         txtTotal.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
         txtCambio.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
         txtSuPago.setFont(tipoFuente.fuente(tipoFuente.FLAME_cursiva_otf, 0, 14));
-       
+
     }
 
     // FUNCION PARA BUSCAR Y AGREGAR PRODUCTOS A LA TABLA, ADEMAS IRA SUMANDO LA MISMA.
-    private void buscar() {
+    private void buscar() 
+    {
 
         // CONSULTAMOS A LA BASE DE DATOS SI EXISTE EL ID QUE SE INGRESO
         String vector[] = new String[4];
         Producto aProducto = new Producto();
         String codProducto = String.valueOf(txtCodProducto.getText());
-        try {
+        try 
+        {
             st = cx.prepareStatement("SELECT * FROM productos ");
             rs = st.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next()) 
+            {
                 // CARGAMOS EL VECTOR CON DATOS OBTENIDOS
                 vector[0] = rs.getString("idproducto");
                 vector[1] = rs.getString("tipo");
                 vector[2] = rs.getString("descripcion");
                 vector[3] = rs.getString("precio");
-                //COMPARAMOS SI EL CODIGO INGRESADO EN INTERFAZ ES IGUAL AL CODIGO OBTENIDO DE LA BD
-                if (codProducto.equals("")) {
+                
+                // VERIFICACAMOS QUE EL INPUT TENGA DATO , DE LO CONTRARIO MOSTRARA ERROR.
+                if (codProducto.equals("")) 
+                {
                     lblError.setText("Ingrese codigo!!");
-                } else {
+                } 
+                else 
+                {
+                //COMPARAMOS SI EL CODIGO INGRESADO EN INTERFAZ ES IGUAL AL CODIGO OBTENIDO DE LA BD.
+                    if (codProducto.equals(vector[0])) 
+                    {
+                        lblError.setText(""); // BORRAMOS EL LABEL POR SI HAY ALGUN ERROR COLGADO.
+                        modelo.addRow(vector); // AGREGAMOS EL VECTOR A LA LISTA.
+                        txtCodProducto.setText(""); //VACIAMOS EL INPUT CODIGO.
+                        txtCodProducto.requestFocus(); //NOS POSICIONAMOS EN EL INPUT POR SI SE QUIERE AGREGAR UN PRODUCTO MAS.
 
-                    if (codProducto.equals(vector[0])) {
-                        lblError.setText("");
-                        modelo.addRow(vector);
-                        txtCodProducto.setText("");
-                        txtCodProducto.requestFocus();
-
-                        aProducto.setPrecio(Float.parseFloat(vector[3]));
-                        aList_productos.add(aProducto);
-                        sumarPrecio();
-                        txtSuPago.setEditable(true);
+                        aProducto.setPrecio(Float.parseFloat(vector[3])); // AGREGAMOS AL OBJETO EL NUEVO PRECIO DEL PRODUCTO ENCONTRADO.
+                        aList_productos.add(aProducto); // AGREGAMOS AL ARRAY LIST DE PRODUCTOS UN NUEVO PRECIO PARA LUEGO CALCULARLO.
+                        sumarPrecio(); // INVOCAMOS LA FUNCION PARA QUE SETEE LA SUMA DE LOS PRECIOS.
+                        txtSuPago.setEditable(true); // HABILITAMOS PARA QUE SE PUEDA INGRESAR EL PAGO.
                         break;
-
-                    } else {
+                    } 
+                    // EL CODIGO INGRESADO EN EL INPUT NO EXISTE EN LA BASE.
+                    else 
+                    {
                         lblError.setText("Codigo inexistente");
                         txtCodProducto.requestFocus();
                     }
                 }
             }
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
