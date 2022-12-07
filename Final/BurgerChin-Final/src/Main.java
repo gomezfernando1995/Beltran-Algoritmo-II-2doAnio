@@ -1,5 +1,9 @@
 
 import font.Fuentes;
+import java.awt.Color;
+import static java.awt.Color.black;
+import static java.awt.Color.green;
+import static java.awt.Color.white;
 //import java.awt.Color;
 import java.net.URL;
 import java.util.ArrayList;
@@ -13,7 +17,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 
 /**
  *
@@ -33,6 +36,18 @@ public class Main extends javax.swing.JFrame {
     Fuentes tipoFuente;
     ArrayList<Producto> aList_productos = new ArrayList();
     DefaultTableModel modelo = new DefaultTableModel();
+
+    // COLORES 
+    Color gris = new Color(204, 204, 204);
+    Color naranjaClaro = new Color(232, 80, 26);
+    Color naranjaOscuro = new Color(196, 72, 28);
+    Color naranja = new Color(227, 157, 42);
+
+    Color rojo = new Color(188, 10, 10);
+    Color bordo = new Color(144, 9, 9);
+
+    int flag = 0;
+    int flagLimpiar = 0;
 
     public Main() throws SQLException {
 
@@ -64,24 +79,29 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblCheck = new javax.swing.JLabel();
         lblCodProducto = new javax.swing.JLabel();
         hamburguesa = new javax.swing.JLabel();
         pnl = new javax.swing.JScrollPane();
         tblEleccion = new javax.swing.JTable();
         txtCodProducto = new javax.swing.JTextField();
-        btnFinalizarPedido = new javax.swing.JLabel();
         txtSuPago = new javax.swing.JTextField();
         txtCambio = new javax.swing.JTextField();
         lblTotal = new javax.swing.JLabel();
         lblCambio = new javax.swing.JLabel();
         lblSuPago = new javax.swing.JLabel();
         barra = new javax.swing.JPanel();
-        txtTotal = new javax.swing.JTextField();
         lblMapaDeComida = new javax.swing.JLabel();
-        lblError = new javax.swing.JLabel();
-        lblClear = new javax.swing.JLabel();
+        txtTotal = new javax.swing.JTextField();
         lblSupago_error = new javax.swing.JLabel();
+        lblError = new javax.swing.JLabel();
+        btnLimpiar = new PanelRound();
+        lblLimpiar = new javax.swing.JLabel();
+        btnIngresar = new PanelRound();
+        lblIngresar = new javax.swing.JLabel();
+        btnOtroPedido = new PanelRound();
+        jLabel3 = new javax.swing.JLabel();
+        btnFinalizarPedido = new PanelRound();
+        jLabel2 = new javax.swing.JLabel();
         img_patron = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -91,18 +111,6 @@ public class Main extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblCheck.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/check_gris.png"))); // NOI18N
-        lblCheck.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblCheck.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCheckMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblCheckMouseEntered(evt);
-            }
-        });
-        getContentPane().add(lblCheck, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 60, 40, 30));
-
         lblCodProducto.setBackground(new java.awt.Color(255, 51, 51));
         lblCodProducto.setFont(new java.awt.Font("Bahnschrift", 0, 24)); // NOI18N
         lblCodProducto.setForeground(new java.awt.Color(59, 26, 4));
@@ -110,7 +118,9 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(lblCodProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, 30));
 
         hamburguesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/burger.png"))); // NOI18N
-        getContentPane().add(hamburguesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, -1, 320));
+        getContentPane().add(hamburguesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, -1, 340));
+
+        pnl.setBorder(null);
 
         tblEleccion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -131,7 +141,7 @@ public class Main extends javax.swing.JFrame {
         tblEleccion.setShowHorizontalLines(true);
         pnl.setViewportView(tblEleccion);
 
-        getContentPane().add(pnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 570, 240));
+        getContentPane().add(pnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 610, 230));
 
         txtCodProducto.setForeground(new java.awt.Color(65, 34, 0));
         txtCodProducto.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -150,21 +160,7 @@ public class Main extends javax.swing.JFrame {
                 txtCodProductoKeyTyped(evt);
             }
         });
-        getContentPane().add(txtCodProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 390, 30));
-
-        btnFinalizarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_finalizar-pedido.png"))); // NOI18N
-        btnFinalizarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnFinalizarPedido.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnFinalizarPedidoMouseClicked(evt);
-            }
-        });
-        btnFinalizarPedido.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnFinalizarPedidoKeyPressed(evt);
-            }
-        });
-        getContentPane().add(btnFinalizarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 390, -1, -1));
+        getContentPane().add(txtCodProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 360, 30));
 
         txtSuPago.setEditable(false);
         txtSuPago.setBackground(new java.awt.Color(249, 210, 167));
@@ -175,11 +171,14 @@ public class Main extends javax.swing.JFrame {
             }
         });
         txtSuPago.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSuPagoKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtSuPagoKeyTyped(evt);
             }
         });
-        getContentPane().add(txtSuPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 470, 170, 30));
+        getContentPane().add(txtSuPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 440, 170, 30));
 
         txtCambio.setEditable(false);
         txtCambio.setBackground(new java.awt.Color(249, 210, 167));
@@ -189,28 +188,22 @@ public class Main extends javax.swing.JFrame {
                 txtCambioActionPerformed(evt);
             }
         });
-        getContentPane().add(txtCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 470, 160, 30));
+        getContentPane().add(txtCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 510, 170, 30));
 
         lblTotal.setForeground(new java.awt.Color(84, 42, 0));
         lblTotal.setText("TOTAL");
-        getContentPane().add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, 50, -1));
+        getContentPane().add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 360, 50, -1));
 
         lblCambio.setForeground(new java.awt.Color(84, 44, 4));
         lblCambio.setText("CAMBIO");
-        getContentPane().add(lblCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 450, 90, 20));
+        getContentPane().add(lblCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 490, 90, 20));
 
         lblSuPago.setForeground(new java.awt.Color(65, 32, 0));
         lblSuPago.setText("SU PAGO");
-        getContentPane().add(lblSuPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 450, -1, -1));
+        getContentPane().add(lblSuPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 420, -1, 20));
 
         barra.setBackground(new java.awt.Color(115, 76, 50));
         barra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 30));
-
-        txtTotal.setEditable(false);
-        txtTotal.setBackground(new java.awt.Color(249, 210, 167));
-        txtTotal.setSelectionColor(new java.awt.Color(255, 51, 51));
-        getContentPane().add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 400, 170, 30));
 
         lblMapaDeComida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lista.png"))); // NOI18N
         lblMapaDeComida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -219,28 +212,140 @@ public class Main extends javax.swing.JFrame {
                 lblMapaDeComidaMouseClicked(evt);
             }
         });
-        getContentPane().add(lblMapaDeComida, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 60, -1, 30));
+        barra.add(lblMapaDeComida, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, -1, 40));
+
+        getContentPane().add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
+
+        txtTotal.setEditable(false);
+        txtTotal.setBackground(new java.awt.Color(249, 210, 167));
+        txtTotal.setSelectionColor(new java.awt.Color(255, 51, 51));
+        getContentPane().add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 380, 170, 30));
+
+        lblSupago_error.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 11)); // NOI18N
+        lblSupago_error.setForeground(new java.awt.Color(255, 0, 0));
+        getContentPane().add(lblSupago_error, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 470, 150, 20));
 
         lblError.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         lblError.setForeground(new java.awt.Color(255, 0, 0));
         getContentPane().add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 280, 20));
 
-        lblClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clear_off.png"))); // NOI18N
-        lblClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(lblClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 40, 30));
+        btnLimpiar.setBackground(new java.awt.Color(204, 204, 204));
+        btnLimpiar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 153), new java.awt.Color(255, 204, 153), new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
+        btnLimpiar.setRoundBottomLeft(10);
+        btnLimpiar.setRoundBottomRight(10);
+        btnLimpiar.setRoundTopLeft(10);
+        btnLimpiar.setRoundTopRight(10);
+        btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLimpiarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLimpiarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLimpiarMouseExited(evt);
+            }
+        });
+        btnLimpiar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblSupago_error.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        lblSupago_error.setForeground(new java.awt.Color(255, 0, 0));
-        getContentPane().add(lblSupago_error, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 500, 150, 20));
+        lblLimpiar.setBackground(new java.awt.Color(204, 204, 204));
+        lblLimpiar.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
+        lblLimpiar.setText("Limpiar");
+        btnLimpiar.add(lblLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, -10, 50, 50));
+
+        getContentPane().add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, 90, 30));
+
+        btnIngresar.setBackground(new java.awt.Color(204, 204, 204));
+        btnIngresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 153), new java.awt.Color(255, 204, 153), new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
+        btnIngresar.setRoundBottomLeft(10);
+        btnIngresar.setRoundBottomRight(10);
+        btnIngresar.setRoundTopLeft(10);
+        btnIngresar.setRoundTopRight(10);
+        btnIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnIngresarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnIngresarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnIngresarMouseExited(evt);
+            }
+        });
+        btnIngresar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblIngresar.setBackground(new java.awt.Color(204, 204, 204));
+        lblIngresar.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
+        lblIngresar.setText("  Ingresar");
+        btnIngresar.add(lblIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -10, 70, 50));
+
+        getContentPane().add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 60, 90, 30));
+
+        btnOtroPedido.setBackground(new java.awt.Color(204, 204, 204));
+        btnOtroPedido.setRoundBottomLeft(10);
+        btnOtroPedido.setRoundBottomRight(10);
+        btnOtroPedido.setRoundTopLeft(10);
+        btnOtroPedido.setRoundTopRight(10);
+        btnOtroPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnOtroPedidoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnOtroPedidoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnOtroPedidoMouseExited(evt);
+            }
+        });
+        btnOtroPedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setBackground(new java.awt.Color(196, 72, 28));
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("  Otro Pedido");
+        btnOtroPedido.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 0, 100, 40));
+
+        getContentPane().add(btnOtroPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 470, 150, 40));
+
+        btnFinalizarPedido.setBackground(new java.awt.Color(188, 10, 10));
+        btnFinalizarPedido.setRoundBottomLeft(10);
+        btnFinalizarPedido.setRoundBottomRight(10);
+        btnFinalizarPedido.setRoundTopLeft(10);
+        btnFinalizarPedido.setRoundTopRight(10);
+        btnFinalizarPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFinalizarPedidoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnFinalizarPedidoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnFinalizarPedidoMouseExited(evt);
+            }
+        });
+        btnFinalizarPedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnFinalizarPedidoKeyPressed(evt);
+            }
+        });
+        btnFinalizarPedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setBackground(new java.awt.Color(232, 5, 5));
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("    Finalizar Pedido");
+        btnFinalizarPedido.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 6, 150, 30));
+
+        getContentPane().add(btnFinalizarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 410, 150, 40));
 
         img_patron.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/gradient.jpeg"))); // NOI18N
         img_patron.setText("jLabel1");
         img_patron.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         img_patron.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().add(img_patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, 20, 930, 510));
+        getContentPane().add(img_patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, 20, 950, 550));
 
         jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 370, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -248,10 +353,6 @@ public class Main extends javax.swing.JFrame {
     private void txtCodProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodProductoActionPerformed
 
     }//GEN-LAST:event_txtCodProductoActionPerformed
-
-    private void lblCheckMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCheckMouseEntered
-
-    }//GEN-LAST:event_lblCheckMouseEntered
 
     private void txtSuPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSuPagoActionPerformed
         // TODO add your handling code here:
@@ -261,11 +362,7 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCambioActionPerformed
 
-    private void lblCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCheckMouseClicked
-        buscar();
-    }//GEN-LAST:event_lblCheckMouseClicked
-
-
+    //
     private void txtSuPagoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSuPagoKeyTyped
         soloDecimal(evt);
     }//GEN-LAST:event_txtSuPagoKeyTyped
@@ -282,59 +379,114 @@ public class Main extends javax.swing.JFrame {
         soloEnteros(evt);
     }//GEN-LAST:event_txtCodProductoKeyTyped
 
-    private void btnFinalizarPedidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoKeyPressed
+    /*
+    MOSTRARA LA LISTA DE PRODUCTOS 
+     */
+    private void lblMapaDeComidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMapaDeComidaMouseClicked
+        new Listado().setVisible(true);
 
+    }//GEN-LAST:event_lblMapaDeComidaMouseClicked
+
+    private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
+        buscar();
+    }//GEN-LAST:event_btnIngresarMouseClicked
+
+    private void btnIngresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseEntered
+        Color verde = new Color(0, 153, 0);
+        btnIngresar.setBackground(verde);
+        lblIngresar.setForeground(white);
+    }//GEN-LAST:event_btnIngresarMouseEntered
+
+    private void btnIngresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseExited
+
+        Color gris = new Color(204, 204, 204);
+        btnIngresar.setBackground(gris);// TODO add your handling code here:
+        lblIngresar.setForeground(black);
+    }//GEN-LAST:event_btnIngresarMouseExited
+
+    private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
+        if (flagLimpiar == 0) {
+            modelo.setRowCount(0);
+            txtTotal.setText("");
+            txtSuPago.setEditable(false);
+            txtCodProducto.requestFocus();
+            aList_productos.clear();
+
+        }
+
+    }//GEN-LAST:event_btnLimpiarMouseClicked
+
+    private void btnLimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseEntered
+        if (flagLimpiar == 0) {
+            btnLimpiar.setBackground(naranja);
+            lblLimpiar.setForeground(white);
+        }
+    }//GEN-LAST:event_btnLimpiarMouseEntered
+
+    private void btnLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseExited
+        if (flagLimpiar == 0) {
+            btnLimpiar.setBackground(gris);
+            lblLimpiar.setForeground(black);
+        }
+    }//GEN-LAST:event_btnLimpiarMouseExited
+
+    private void txtSuPagoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSuPagoKeyPressed
+        char c = (char) evt.getKeyChar();
+        if (c == evt.VK_ENTER) {
+            resultado();
+        }
+    }//GEN-LAST:event_txtSuPagoKeyPressed
+
+    private void btnFinalizarPedidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoKeyPressed
 
     }//GEN-LAST:event_btnFinalizarPedidoKeyPressed
 
     private void btnFinalizarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoMouseClicked
-       
 
-        // VERIFICO QUE TOTAL NO ESTE VACIO, SI NO HAY MONTO SIGNIFICA QUE NO SE HAN CARGADO PRODUCTOS .         
-        
-         if (!(txtTotal.getText().equals(""))) 
-         {
-            
-        // VEFICAMOS QUE SE HAYA INGRESADO EL PAGO.
-        
-            if (!(txtSuPago.getText().equals(""))) 
-            {
-                double totalItem = Double.parseDouble(txtTotal.getText());
-                double totalIngresado = Double.parseDouble(txtSuPago.getText());
-                
-                // VERIFICAMOS QUE EL MONTO INGRESADO SEA MAYOR AL MONTO TOTAL, DE LO CONTRARIO MUESTRA EL ERROR EN LA INTERFAZ. 
-                if (totalIngresado < totalItem) 
-                {
-                    lblSupago_error.setText("Ingrese un pago mayor!");
-                } 
-                
-                // SI ESTA TODO CORRECTO PROCEDERA A HACER EL CALCULO Y MOSTRARLO EN EL  INPUT CAMBIO.
-                else 
-                { 
-                    txtCambio.setText(String.valueOf(totalIngresado - totalItem));
-                    lblSupago_error.setText("");
-                    txtSuPago.setEditable(false);
-                    txtCambio.requestFocus();
-                }
-            }
-            
-            // MOSTRARA ERROR EN EL CASO DE QUE NO SE HAYA INGRESADO EL PAGO
-            else 
-            {
-                lblSupago_error.setText("Ingrese su pago!");
-            }
+        resultado();
+        if(flag ==1){
+             flagLimpiar=1;
         }
+
     }//GEN-LAST:event_btnFinalizarPedidoMouseClicked
-  
-/*
-    MOSTRARA LA LISTA DE PRODUCTOS 
-*/ 
-    private void lblMapaDeComidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMapaDeComidaMouseClicked
-        new Listado().setVisible(true); 
 
-    }//GEN-LAST:event_lblMapaDeComidaMouseClicked
+    private void btnOtroPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOtroPedidoMouseClicked
 
-    
+        if (flag == 1) {
+            modelo.setRowCount(0);
+            txtTotal.setText("");
+            txtSuPago.setText("");
+            txtCambio.setText("");
+            txtSuPago.setEditable(false);
+            txtCodProducto.requestFocus();
+            flag = 0;
+            btnOtroPedido.setBackground(gris);
+             flagLimpiar=0;
+        }
+
+
+    }//GEN-LAST:event_btnOtroPedidoMouseClicked
+
+    private void btnOtroPedidoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOtroPedidoMouseEntered
+        if (flag == 1) {
+            btnOtroPedido.setBackground(naranjaOscuro);
+        }
+    }//GEN-LAST:event_btnOtroPedidoMouseEntered
+
+    private void btnOtroPedidoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOtroPedidoMouseExited
+        if (flag == 1) {
+            btnOtroPedido.setBackground(naranjaClaro);
+        }
+    }//GEN-LAST:event_btnOtroPedidoMouseExited
+
+    private void btnFinalizarPedidoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoMouseEntered
+        btnFinalizarPedido.setBackground(bordo);
+    }//GEN-LAST:event_btnFinalizarPedidoMouseEntered
+
+    private void btnFinalizarPedidoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoMouseExited
+        btnFinalizarPedido.setBackground(rojo);
+    }//GEN-LAST:event_btnFinalizarPedidoMouseExited
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -427,36 +579,29 @@ public class Main extends javax.swing.JFrame {
     }
 
     // FUNCION PARA BUSCAR Y AGREGAR PRODUCTOS A LA TABLA, ADEMAS IRA SUMANDO LA MISMA.
-    private void buscar() 
-    {
+    private void buscar() {
 
         // CONSULTAMOS A LA BASE DE DATOS SI EXISTE EL ID QUE SE INGRESO
         String vector[] = new String[4];
         Producto aProducto = new Producto();
         String codProducto = String.valueOf(txtCodProducto.getText());
-        try 
-        {
+        try {
             st = cx.prepareStatement("SELECT * FROM productos ");
             rs = st.executeQuery();
 
-            while (rs.next()) 
-            {
+            while (rs.next()) {
                 // CARGAMOS EL VECTOR CON DATOS OBTENIDOS
                 vector[0] = rs.getString("idproducto");
                 vector[1] = rs.getString("tipo");
                 vector[2] = rs.getString("descripcion");
                 vector[3] = rs.getString("precio");
-                
+
                 // VERIFICACAMOS QUE EL INPUT TENGA DATO , DE LO CONTRARIO MOSTRARA ERROR.
-                if (codProducto.equals("")) 
-                {
+                if (codProducto.equals("")) {
                     lblError.setText("Ingrese codigo!!");
-                } 
-                else 
-                {
-                //COMPARAMOS SI EL CODIGO INGRESADO EN INTERFAZ ES IGUAL AL CODIGO OBTENIDO DE LA BD.
-                    if (codProducto.equals(vector[0])) 
-                    {
+                } else {
+                    //COMPARAMOS SI EL CODIGO INGRESADO EN INTERFAZ ES IGUAL AL CODIGO OBTENIDO DE LA BD.
+                    if (codProducto.equals(vector[0])) {
                         lblError.setText(""); // BORRAMOS EL LABEL POR SI HAY ALGUN ERROR COLGADO.
                         modelo.addRow(vector); // AGREGAMOS EL VECTOR A LA LISTA.
                         txtCodProducto.setText(""); //VACIAMOS EL INPUT CODIGO.
@@ -467,19 +612,47 @@ public class Main extends javax.swing.JFrame {
                         sumarPrecio(); // INVOCAMOS LA FUNCION PARA QUE SETEE LA SUMA DE LOS PRECIOS.
                         txtSuPago.setEditable(true); // HABILITAMOS PARA QUE SE PUEDA INGRESAR EL PAGO.
                         break;
-                    } 
-                    // EL CODIGO INGRESADO EN EL INPUT NO EXISTE EN LA BASE.
-                    else 
-                    {
+                    } // EL CODIGO INGRESADO EN EL INPUT NO EXISTE EN LA BASE.
+                    else {
                         lblError.setText("Codigo inexistente");
                         txtCodProducto.requestFocus();
                     }
                 }
             }
-        } 
-        catch (SQLException ex) 
-        {
+        } catch (SQLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    // FUNCION PARA CALCULAR EL VUELTO
+    private void resultado() {
+        // VERIFICO QUE TOTAL NO ESTE VACIO, SI NO HAY MONTO SIGNIFICA QUE NO SE HAN CARGADO PRODUCTOS .         
+
+        if (!(txtTotal.getText().equals(""))) {
+
+            // VEFICAMOS QUE SE HAYA INGRESADO EL PAGO.
+            if (!(txtSuPago.getText().equals(""))) {
+                double totalItem = Double.parseDouble(txtTotal.getText());
+                double totalIngresado = Double.parseDouble(txtSuPago.getText());
+
+                // VERIFICAMOS QUE EL MONTO INGRESADO SEA MAYOR AL MONTO TOTAL, DE LO CONTRARIO MUESTRA EL ERROR EN LA INTERFAZ. 
+                if (totalIngresado < totalItem) {
+                    lblSupago_error.setText("Ingrese un pago mayor!");
+                } // SI ESTA TODO CORRECTO PROCEDERA A HACER EL CALCULO Y MOSTRARLO EN EL  INPUT CAMBIO.
+                else {
+                    txtCambio.setText(String.valueOf(totalIngresado - totalItem));
+                    lblSupago_error.setText("");
+                    txtSuPago.setEditable(false);
+                    txtCambio.requestFocus();
+                    btnOtroPedido.setBackground(naranjaClaro);
+                    aList_productos.clear();
+                    flag = 1;
+                }
+            } // MOSTRARA ERROR EN EL CASO DE QUE NO SE HAYA INGRESADO EL PAGO
+            else {
+                lblSupago_error.setText("Ingrese su pago!");
+            }
         }
 
     }
@@ -487,15 +660,20 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barra;
-    private javax.swing.JLabel btnFinalizarPedido;
+    private PanelRound btnFinalizarPedido;
+    private PanelRound btnIngresar;
+    private PanelRound btnLimpiar;
+    private PanelRound btnOtroPedido;
     private javax.swing.JLabel hamburguesa;
     private javax.swing.JLabel img_patron;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblCambio;
-    private javax.swing.JLabel lblCheck;
-    private javax.swing.JLabel lblClear;
     private javax.swing.JLabel lblCodProducto;
     private javax.swing.JLabel lblError;
+    private javax.swing.JLabel lblIngresar;
+    private javax.swing.JLabel lblLimpiar;
     private javax.swing.JLabel lblMapaDeComida;
     private javax.swing.JLabel lblSuPago;
     private javax.swing.JLabel lblSupago_error;

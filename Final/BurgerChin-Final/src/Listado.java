@@ -60,10 +60,10 @@ public class Listado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlExit = new javax.swing.JPanel();
-        lblExit = new javax.swing.JLabel();
         pnlBarra = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        pnlExit = new javax.swing.JPanel();
+        lblExit = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -73,6 +73,24 @@ public class Listado extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnlBarra.setBackground(new java.awt.Color(220, 177, 105));
+        pnlBarra.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlBarra.setForeground(new java.awt.Color(204, 204, 204));
+        pnlBarra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                pnlBarraMouseDragged(evt);
+            }
+        });
+        pnlBarra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlBarraMousePressed(evt);
+            }
+        });
+        pnlBarra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lg2.png"))); // NOI18N
+        pnlBarra.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 30));
 
         pnlExit.setBackground(new java.awt.Color(115, 76, 50));
         pnlExit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -96,29 +114,11 @@ public class Listado extends javax.swing.JFrame {
                 lblExitMouseExited(evt);
             }
         });
-        pnlExit.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 40, 30));
+        pnlExit.add(lblExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 30));
 
-        getContentPane().add(pnlExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 0, 40, 30));
+        pnlBarra.add(pnlExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 40, 30));
 
-        pnlBarra.setBackground(new java.awt.Color(220, 177, 105));
-        pnlBarra.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        pnlBarra.setForeground(new java.awt.Color(204, 204, 204));
-        pnlBarra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                pnlBarraMouseDragged(evt);
-            }
-        });
-        pnlBarra.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlBarraMousePressed(evt);
-            }
-        });
-        pnlBarra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lg2.png"))); // NOI18N
-        pnlBarra.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 30));
-
-        getContentPane().add(pnlBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 30));
+        getContentPane().add(pnlBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 30));
 
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,11 +142,11 @@ public class Listado extends javax.swing.JFrame {
         tblProductos.setName(""); // NOI18N
         jScrollPane1.setViewportView(tblProductos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 530, 280));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 490, 260));
 
         jPanel1.setBackground(new java.awt.Color(115, 76, 50));
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 330));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
