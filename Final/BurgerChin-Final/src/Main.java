@@ -1,8 +1,6 @@
 
 import font.Fuentes;
 import java.awt.Color;
-import static java.awt.Color.black;
-import static java.awt.Color.green;
 import static java.awt.Color.white;
 //import java.awt.Color;
 import java.net.URL;
@@ -38,16 +36,19 @@ public class Main extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
 
     // COLORES 
+    Color verde = new Color(0, 182, 0);
+    Color verdeOsc = new Color(0, 153, 0);
+
     Color gris = new Color(204, 204, 204);
     Color naranjaClaro = new Color(232, 80, 26);
     Color naranjaOscuro = new Color(196, 72, 28);
     Color naranja = new Color(227, 157, 42);
 
-    Color rojo = new Color(188, 10, 10);
+    Color naranjaNeutro = new Color(248, 172, 48);
+    Color rojoNeutro = new Color(188, 10, 10);
     Color bordo = new Color(144, 9, 9);
 
-    int flag = 0;
-    int flagLimpiar = 0;
+    int flagOtroPedido = 0, flagLimpiar = 0, flagFinalizar = 0, flagIngresar = 0;
 
     public Main() throws SQLException {
 
@@ -92,8 +93,8 @@ public class Main extends javax.swing.JFrame {
         barra = new javax.swing.JPanel();
         lblMapaDeComida = new javax.swing.JLabel();
         txtTotal = new javax.swing.JTextField();
-        lblSupago_error = new javax.swing.JLabel();
         lblError = new javax.swing.JLabel();
+        lblSupago_error = new javax.swing.JLabel();
         btnLimpiar = new PanelRound();
         lblLimpiar = new javax.swing.JLabel();
         btnIngresar = new PanelRound();
@@ -206,7 +207,7 @@ public class Main extends javax.swing.JFrame {
         barra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblMapaDeComida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lista.png"))); // NOI18N
-        lblMapaDeComida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblMapaDeComida.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblMapaDeComida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblMapaDeComidaMouseClicked(evt);
@@ -221,16 +222,17 @@ public class Main extends javax.swing.JFrame {
         txtTotal.setSelectionColor(new java.awt.Color(255, 51, 51));
         getContentPane().add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 380, 170, 30));
 
-        lblSupago_error.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 11)); // NOI18N
-        lblSupago_error.setForeground(new java.awt.Color(255, 0, 0));
-        getContentPane().add(lblSupago_error, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 470, 150, 20));
-
         lblError.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         lblError.setForeground(new java.awt.Color(255, 0, 0));
         getContentPane().add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 280, 20));
 
+        lblSupago_error.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 11)); // NOI18N
+        lblSupago_error.setForeground(new java.awt.Color(255, 0, 0));
+        getContentPane().add(lblSupago_error, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 470, 150, 20));
+
         btnLimpiar.setBackground(new java.awt.Color(204, 204, 204));
         btnLimpiar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 153), new java.awt.Color(255, 204, 153), new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
+        btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
         btnLimpiar.setRoundBottomLeft(10);
         btnLimpiar.setRoundBottomRight(10);
         btnLimpiar.setRoundTopLeft(10);
@@ -250,13 +252,15 @@ public class Main extends javax.swing.JFrame {
 
         lblLimpiar.setBackground(new java.awt.Color(204, 204, 204));
         lblLimpiar.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
+        lblLimpiar.setForeground(new java.awt.Color(255, 255, 255));
         lblLimpiar.setText("Limpiar");
         btnLimpiar.add(lblLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, -10, 50, 50));
 
         getContentPane().add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, 90, 30));
 
-        btnIngresar.setBackground(new java.awt.Color(204, 204, 204));
+        btnIngresar.setBackground(new java.awt.Color(0, 182, 0));
         btnIngresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 153), new java.awt.Color(255, 204, 153), new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
+        btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btnIngresar.setRoundBottomLeft(10);
         btnIngresar.setRoundBottomRight(10);
         btnIngresar.setRoundTopLeft(10);
@@ -276,6 +280,7 @@ public class Main extends javax.swing.JFrame {
 
         lblIngresar.setBackground(new java.awt.Color(204, 204, 204));
         lblIngresar.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
+        lblIngresar.setForeground(new java.awt.Color(255, 255, 255));
         lblIngresar.setText("  Ingresar");
         btnIngresar.add(lblIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -10, 70, 50));
 
@@ -307,7 +312,7 @@ public class Main extends javax.swing.JFrame {
 
         getContentPane().add(btnOtroPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 470, 150, 40));
 
-        btnFinalizarPedido.setBackground(new java.awt.Color(188, 10, 10));
+        btnFinalizarPedido.setBackground(new java.awt.Color(204, 204, 204));
         btnFinalizarPedido.setRoundBottomLeft(10);
         btnFinalizarPedido.setRoundBottomRight(10);
         btnFinalizarPedido.setRoundTopLeft(10);
@@ -367,7 +372,7 @@ public class Main extends javax.swing.JFrame {
         soloDecimal(evt);
     }//GEN-LAST:event_txtSuPagoKeyTyped
 
-
+    //------------------------- INPUT COD PRODUCTO----------------------------- 
     private void txtCodProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodProductoKeyPressed
         char c = (char) evt.getKeyChar();
         if (c == evt.VK_ENTER) {
@@ -379,54 +384,63 @@ public class Main extends javax.swing.JFrame {
         soloEnteros(evt);
     }//GEN-LAST:event_txtCodProductoKeyTyped
 
-    /*
-    MOSTRARA LA LISTA DE PRODUCTOS 
-     */
+    //---------------------------  MOSTRARA LA LISTA DE PRODUCTOS ---------------- ----------------------------- 
+
     private void lblMapaDeComidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMapaDeComidaMouseClicked
         new Listado().setVisible(true);
 
     }//GEN-LAST:event_lblMapaDeComidaMouseClicked
 
+    //----------------------------- BOTON INGRESAR ------------------------------------------------------------- 
+
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
-        buscar();
+        if (flagIngresar == 0) {
+            buscar();
+        }
+
+
     }//GEN-LAST:event_btnIngresarMouseClicked
 
     private void btnIngresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseEntered
-        Color verde = new Color(0, 153, 0);
-        btnIngresar.setBackground(verde);
-        lblIngresar.setForeground(white);
+        if (flagIngresar == 0) {
+            btnIngresar.setBackground(verdeOsc);
+            lblIngresar.setForeground(white);
+        }
     }//GEN-LAST:event_btnIngresarMouseEntered
 
     private void btnIngresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseExited
-
-        Color gris = new Color(204, 204, 204);
-        btnIngresar.setBackground(gris);// TODO add your handling code here:
-        lblIngresar.setForeground(black);
+        if (flagIngresar == 0) {
+            btnIngresar.setBackground(verde);
+        }
     }//GEN-LAST:event_btnIngresarMouseExited
 
+    //-----------------------------  BOTON LIMPIAR ----------------------------- 
+
     private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
-        if (flagLimpiar == 0) {
+        if (flagLimpiar == 1) {
             modelo.setRowCount(0);
             txtTotal.setText("");
             txtSuPago.setEditable(false);
             txtCodProducto.requestFocus();
             aList_productos.clear();
+            lblError.setText("");
+            btnLimpiarOff();
+            btnFinalizarOff();
 
         }
-
     }//GEN-LAST:event_btnLimpiarMouseClicked
 
     private void btnLimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseEntered
-        if (flagLimpiar == 0) {
+        if (flagLimpiar == 1) {
             btnLimpiar.setBackground(naranja);
-            lblLimpiar.setForeground(white);
+
         }
     }//GEN-LAST:event_btnLimpiarMouseEntered
 
     private void btnLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseExited
-        if (flagLimpiar == 0) {
-            btnLimpiar.setBackground(gris);
-            lblLimpiar.setForeground(black);
+        if (flagLimpiar == 1) {
+            btnLimpiar.setBackground(naranjaNeutro);
+
         }
     }//GEN-LAST:event_btnLimpiarMouseExited
 
@@ -443,48 +457,60 @@ public class Main extends javax.swing.JFrame {
 
     private void btnFinalizarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoMouseClicked
 
-        resultado();
-        if(flag ==1){
-             flagLimpiar=1;
+        if (flagFinalizar == 1) {
+            resultado();
+            lblError.setText("");
+
+            //flagLimpiar = 2;
         }
 
     }//GEN-LAST:event_btnFinalizarPedidoMouseClicked
 
     private void btnOtroPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOtroPedidoMouseClicked
 
-        if (flag == 1) {
+        if (flagOtroPedido == 1) {
             modelo.setRowCount(0);
             txtTotal.setText("");
             txtSuPago.setText("");
             txtCambio.setText("");
             txtSuPago.setEditable(false);
             txtCodProducto.requestFocus();
-            flag = 0;
-            btnOtroPedido.setBackground(gris);
-             flagLimpiar=0;
+
+            btnLimpiarOff();
+            btnOtroPedidoOff();
+            btnIngresarOn();
+            txtCodProducto.setEnabled(true);
         }
 
 
     }//GEN-LAST:event_btnOtroPedidoMouseClicked
 
     private void btnOtroPedidoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOtroPedidoMouseEntered
-        if (flag == 1) {
+        if (flagOtroPedido == 1) {
             btnOtroPedido.setBackground(naranjaOscuro);
         }
     }//GEN-LAST:event_btnOtroPedidoMouseEntered
 
     private void btnOtroPedidoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOtroPedidoMouseExited
-        if (flag == 1) {
+        if (flagOtroPedido == 1) {
             btnOtroPedido.setBackground(naranjaClaro);
         }
     }//GEN-LAST:event_btnOtroPedidoMouseExited
 
     private void btnFinalizarPedidoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoMouseEntered
-        btnFinalizarPedido.setBackground(bordo);
+
+        if (flagFinalizar == 1) {
+
+            btnFinalizarPedido.setBackground(bordo);
+        }
     }//GEN-LAST:event_btnFinalizarPedidoMouseEntered
 
     private void btnFinalizarPedidoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoMouseExited
-        btnFinalizarPedido.setBackground(rojo);
+
+        if (flagFinalizar == 1) {
+
+            btnFinalizarPedido.setBackground(rojoNeutro);
+        }
     }//GEN-LAST:event_btnFinalizarPedidoMouseExited
 
     public static void main(String args[]) {
@@ -588,7 +614,7 @@ public class Main extends javax.swing.JFrame {
         try {
             st = cx.prepareStatement("SELECT * FROM productos ");
             rs = st.executeQuery();
-
+            lblSupago_error.setText("");
             while (rs.next()) {
                 // CARGAMOS EL VECTOR CON DATOS OBTENIDOS
                 vector[0] = rs.getString("idproducto");
@@ -611,10 +637,15 @@ public class Main extends javax.swing.JFrame {
                         aList_productos.add(aProducto); // AGREGAMOS AL ARRAY LIST DE PRODUCTOS UN NUEVO PRECIO PARA LUEGO CALCULARLO.
                         sumarPrecio(); // INVOCAMOS LA FUNCION PARA QUE SETEE LA SUMA DE LOS PRECIOS.
                         txtSuPago.setEditable(true); // HABILITAMOS PARA QUE SE PUEDA INGRESAR EL PAGO.
+
+                        btnLimpiarOn();
+                        btnFinalizarOn();
+
                         break;
                     } // EL CODIGO INGRESADO EN EL INPUT NO EXISTE EN LA BASE.
                     else {
                         lblError.setText("Codigo inexistente");
+                        txtCodProducto.setText("");
                         txtCodProducto.requestFocus();
                     }
                 }
@@ -639,6 +670,7 @@ public class Main extends javax.swing.JFrame {
                 // VERIFICAMOS QUE EL MONTO INGRESADO SEA MAYOR AL MONTO TOTAL, DE LO CONTRARIO MUESTRA EL ERROR EN LA INTERFAZ. 
                 if (totalIngresado < totalItem) {
                     lblSupago_error.setText("Ingrese un pago mayor!");
+                  txtSuPago.setText("");
                 } // SI ESTA TODO CORRECTO PROCEDERA A HACER EL CALCULO Y MOSTRARLO EN EL  INPUT CAMBIO.
                 else {
                     txtCambio.setText(String.valueOf(totalIngresado - totalItem));
@@ -647,14 +679,61 @@ public class Main extends javax.swing.JFrame {
                     txtCambio.requestFocus();
                     btnOtroPedido.setBackground(naranjaClaro);
                     aList_productos.clear();
-                    flag = 1;
+                    btnIngresar.setBackground(gris);
+                    flagOtroPedido = 1;
+                    btnLimpiarOff();
+                    btnFinalizarOff();
+                    btnIngresarOff();
+                    txtCodProducto.setEnabled(false);
                 }
             } // MOSTRARA ERROR EN EL CASO DE QUE NO SE HAYA INGRESADO EL PAGO
             else {
                 lblSupago_error.setText("Ingrese su pago!");
+
             }
         }
 
+    }
+
+    private void btnLimpiarOff() {
+        flagLimpiar = 0;
+        btnLimpiar.setBackground(gris);
+    }
+
+    private void btnLimpiarOn() {
+        btnLimpiar.setBackground(naranjaNeutro);
+        flagLimpiar = 1;
+    }
+
+    private void btnFinalizarOff() {
+        flagFinalizar = 0;
+        btnFinalizarPedido.setBackground(gris);
+    }
+
+    private void btnFinalizarOn() {
+        btnFinalizarPedido.setBackground(rojoNeutro);
+        flagFinalizar = 1;
+    }
+
+    private void btnOtroPedidoOff() {
+        flagOtroPedido = 0;
+        btnOtroPedido.setBackground(gris);
+    }
+
+    private void btnOtroPedidoOn() {
+        btnOtroPedido.setBackground(naranjaNeutro);
+        flagOtroPedido = 1;
+    }
+
+    private void btnIngresarOff() {
+
+        btnIngresar.setBackground(gris);
+        flagIngresar = 1;
+    }
+
+    private void btnIngresarOn() {
+        btnIngresar.setBackground(verde);
+        flagIngresar = 0;
     }
 
 
