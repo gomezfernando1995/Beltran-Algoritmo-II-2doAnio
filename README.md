@@ -7,5 +7,5 @@ Ejercicios  2022 --> Instituto Beltran |  Analista de sistema |  Algoritmo II | 
 ***
 
  - ### Final : Sistema de pedido con BD MySql ###
- ![Texto alternativo](https://github.com/gomezfernando1995/I.Beltran-2doAnio-Algoritmo2-Java-2022/blob/main/Final/BurgerChin-Final/src/img/burgerchin.png?raw=true)
+ ![Texto alternativo](https://github.com/gomezfernando1995/I.Beltran-2doAnio-Algoritmo2-Java-2022/blob/main/Final/BurgerChin-Final/src/img/BurgerChin%20-%20Sistema%20de%20Pedido.gif?raw=true)
 ***
